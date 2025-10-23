@@ -1,0 +1,561 @@
+<!-- templates/course_detail.html -->
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }} - CostByte{% endblock %}
+
+{% block content %}
+<!-- Course Hero -->
+<section class="course-hero">
+    <div class="container">
+        <div class="hero-content">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="{{ url_for('index') }}">Home</a>
+                <span class="separator">/</span>
+                <a href="{{ url_for('courses') }}">Courses</a>
+                <span class="separator">/</span>
+                <a href="#">{{ course.category }}</a>
+                <span class="separator">/</span>
+                <span class="current">{{ course.title }}</span>
+            </nav>
+
+            <div class="course-hero-grid">
+                <!-- Left Column -->
+                <div class="course-info">
+                    <!-- Category and Badges -->
+                    <div class="course-meta">
+                        <span class="course-category">{{ course.category }}</span>
+                        <div class="course-badges">
+                            <span class="badge ai-badge">AI POWERED</span>
+                            {% if course.is_featured %}
+                            <span class="badge featured-badge">FEATURED</span>
+                            {% endif %}
+                            <span class="badge level-badge">{{ course.difficulty|upper }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Course Title -->
+                    <h1 class="course-title">{{ course.title }}</h1>
+                    
+                    <!-- Course Subtitle -->
+                    {% if course.subtitle %}
+                    <p class="course-subtitle">{{ course.subtitle }}</p>
+                    {% endif %}
+
+                    <!-- Course Description -->
+                    <div class="course-description">
+                        {{ course.description }}
+                    </div>
+
+                    <!-- Key Features -->
+                    <div class="key-features">
+                        <div class="feature">
+                            <span class="feature-icon">⭐</span>
+                            <div class="feature-content">
+                                <strong>4.8/5 Rating</strong>
+                                <span>From {{ course.review_count or 1200 }}+ reviews</span>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">👥</span>
+                            <div class="feature-content">
+                                <strong>{{ course.total_students or 2500 }}+ Students</strong>
+                                <span>Already enrolled and learning</span>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">⏱️</span>
+                            <div class="feature-content">
+                                <strong>{{ course.duration_hours }} Hours</strong>
+                                <span>Self-paced learning</span>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🔄</span>
+                            <div class="feature-content">
+                                <strong>Lifetime Access</strong>
+                                <span>Including all future updates</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Learning Objectives -->
+                    {% if course.learning_objectives %}
+                    <div class="learning-objectives">
+                        <h3>What You'll Learn</h3>
+                        <div class="objectives-grid">
+                            {% for objective in course.learning_objectices.split('\n') %}
+                            <div class="objective">
+                                <span class="check-icon">✅</span>
+                                <span>{{ objective }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- CTA Buttons -->
+                    <div class="hero-actions">
+                        <button class="cta-button primary large" onclick="enrollInCourse('{{ course.id }}')">
+                            🚀 Enroll Now - R{{ "%.0f"|format(course.price_zar) }}
+                        </button>
+                        <button class="cta-button secondary" onclick="addToWishlist('{{ course.id }}')">
+                            ♡ Add to Wishlist
+                        </button>
+                        <button class="cta-button outline" onclick="shareCourse('{{ course.id }}')">
+                            📤 Share Course
+                        </button>
+                    </div>
+
+                    <!-- Guarantee -->
+                    <div class="guarantee-banner">
+                        <span class="guarantee-icon">✅</span>
+                        <div class="guarantee-content">
+                            <strong>30-Day Money-Back Guarantee</strong>
+                            <span>Not satisfied? Get a full refund, no questions asked.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="course-preview">
+                    <!-- Course Image/Video -->
+                    <div class="preview-media">
+                        {% if course.video_url %}
+                        <div class="video-container">
+                            <video controls poster="{{ course.image_url }}">
+                                <source src="{{ course.video_url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        {% else %}
+                        <div class="image-container">
+                            <img src="{{ course.image_url or '/static/images/course-placeholder.jpg' }}" 
+                                 alt="{{ course.title }}">
+                            <button class="play-button" onclick="playPreview()">
+                                <svg width="60" height="60" viewBox="0 0 60 60" fill="currentColor">
+                                    <path d="M30 0C13.458 0 0 13.458 0 30s13.458 30 30 30 30-13.458 30-30S46.542 0 30 0zm-6 44V16l18 14-18 14z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Pricing Box -->
+                    <div class="pricing-box">
+                        <div class="pricing-header">
+                            <div class="price-original">R{{ "%.0f"|format(course.original_price_zar or course.price_zar * 4) }}</div>
+                            <div class="price-current">R{{ "%.0f"|format(course.price_zar) }}</div>
+                            <div class="discount-badge">Save 75%</div>
+                        </div>
+
+                        <div class="pricing-features">
+                            <div class="feature-item">
+                                <span class="feature-icon">✅</span>
+                                <span>Full lifetime access</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✅</span>
+                                <span>AI-powered mentorship</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✅</span>
+                                <span>Certificate of completion</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">✅</span>
+                                <span>Community access</span>
+                            </div>
+                        </div>
+
+                        <button class="enroll-button full-width" onclick="enrollInCourse('{{ course.id }}')">
+                            🚀 Enroll in this Course
+                        </button>
+
+                        <div class="urgency-notice">
+                            <span class="urgency-icon">⚡</span>
+                            <strong>Limited time offer!</strong> 
+                            <span>Only 43 spots left at this price</span>
+                        </div>
+                    </div>
+
+                    <!-- Includes Section -->
+                    <div class="includes-section">
+                        <h4>This course includes:</h4>
+                        <ul class="includes-list">
+                            <li>{{ course.duration_hours }} hours on-demand video</li>
+                            <li>50+ downloadable resources</li>
+                            <li>10+ practical exercises</li>
+                            <li>5 real-world projects</li>
+                            <li>Certificate of completion</li>
+                            <li>Lifetime access</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Course Curriculum -->
+<section class="course-curriculum">
+    <div class="container">
+        <div class="section-header">
+            <h2>Course <span class="highlight">Curriculum</span></h2>
+            <p class="section-subtitle">What you'll learn in this comprehensive course</p>
+        </div>
+
+        <div class="curriculum-accordion">
+            {% for module in course.modules %}
+            <div class="module">
+                <button class="module-header" onclick="toggleModule({{ loop.index }})">
+                    <div class="module-info">
+                        <h3>{{ module.title }}</h3>
+                        <span class="module-duration">{{ module.duration_minutes }} min</span>
+                    </div>
+                    <span class="module-toggle">+</span>
+                </button>
+                <div class="module-content" id="module-{{ loop.index }}">
+                    {% for lesson in module.lessons %}
+                    <div class="lesson">
+                        <div class="lesson-info">
+                            <span class="lesson-icon">
+                                {% if lesson.lesson_type == 'video' %}📹{% endif %}
+                                {% if lesson.lesson_type == 'text' %}📄{% endif %}
+                                {% if lesson.lesson_type == 'quiz' %}❓{% endif %}
+                            </span>
+                            <div class="lesson-details">
+                                <h4>{{ lesson.title }}</h4>
+                                {% if lesson.video_duration %}
+                                <span class="lesson-duration">{{ lesson.video_duration }} min</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if lesson.is_free_preview %}
+                        <button class="preview-btn" onclick="previewLesson('{{ lesson.id }}')">
+                            Preview
+                        </button>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Instructor Section -->
+<section class="instructor-section">
+    <div class="container">
+        <div class="instructor-grid">
+            <div class="instructor-profile">
+                <div class="instructor-avatar">AI</div>
+                <div class="instructor-info">
+                    <h3>AI Instructor</h3>
+                    <p class="instructor-title">CostByte AI Learning System</p>
+                    <div class="instructor-stats">
+                        <div class="stat">
+                            <strong>4.8/5</strong>
+                            <span>Instructor Rating</span>
+                        </div>
+                        <div class="stat">
+                            <strong>10,000+</strong>
+                            <span>Students</span>
+                        </div>
+                        <div class="stat">
+                            <strong>35+</strong>
+                            <span>Courses</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="instructor-bio">
+                <h4>About Your AI Instructor</h4>
+                <p>
+                    Our AI-powered learning system provides personalized instruction, 
+                    instant feedback, and adaptive learning paths tailored to your progress. 
+                    Combining the latest educational research with cutting-edge AI technology, 
+                    we ensure you get the most effective and engaging learning experience possible.
+                </p>
+                <div class="instructor-features">
+                    <span class="feature">🤖 AI-Powered Feedback</span>
+                    <span class="feature">🎯 Personalized Learning</span>
+                    <span class="feature">⚡ Instant Answers</span>
+                    <span class="feature">📊 Progress Tracking</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Reviews Section -->
+<section class="reviews-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Student <span class="highlight">Reviews</span></h2>
+            <div class="rating-overview">
+                <div class="overall-rating">
+                    <div class="rating-score">{{ "%.1f"|format(course.total_rating or 4.8) }}</div>
+                    <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+                    <div class="rating-count">Based on {{ course.review_count or 1200 }}+ reviews</div>
+                </div>
+                <div class="rating-breakdown">
+                    <!-- Rating breakdown would go here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-grid">
+            <!-- Sample Reviews -->
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">TS</div>
+                        <div class="reviewer-info">
+                            <strong>Thabo S.</strong>
+                            <span>2 weeks ago</span>
+                        </div>
+                    </div>
+                    <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div class="review-content">
+                    <h4>Life-changing course!</h4>
+                    <p>
+                        This course completely transformed my career. I went from working a minimum wage job 
+                        to landing a R45,000/month remote position. The AI mentorship was incredibly helpful 
+                        and the community support made all the difference.
+                    </p>
+                </div>
+                <div class="review-helpful">
+                    <button class="helpful-btn">👍 Helpful (42)</button>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">NM</div>
+                        <div class="reviewer-info">
+                            <strong>Nomsa M.</strong>
+                            <span>1 month ago</span>
+                        </div>
+                    </div>
+                    <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div class="review-content">
+                    <h4>Exceeded all expectations</h4>
+                    <p>
+                        The practical projects and real-world examples made learning so much easier. 
+                        I was able to start freelancing within 2 months and now earn more than I ever 
+                        did in my previous job. Highly recommended!
+                    </p>
+                </div>
+                <div class="review-helpful">
+                    <button class="helpful-btn">👍 Helpful (28)</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-cta">
+            <button class="btn-secondary" onclick="loadMoreReviews()">
+                Load More Reviews
+            </button>
+            <button class="btn-primary" onclick="showWriteReview()">
+                Write a Review
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="course-faq">
+    <div class="container">
+        <div class="section-header">
+            <h2>Frequently Asked <span class="highlight">Questions</span></h2>
+        </div>
+
+        <div class="faq-grid">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Is this course suitable for complete beginners?
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes! This course is designed for complete beginners with no prior experience. 
+                    We start from the very basics and gradually build up to advanced concepts. 
+                    Many of our most successful students started with zero knowledge in this field.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    How long will I have access to the course?
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>You get lifetime access to the course, including all future updates and 
+                    additional content. There are no recurring fees - it's a one-time payment 
+                    for permanent access.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    What if I get stuck or need help?
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>You'll have access to our AI mentor Megan for instant help, plus our 
+                    community of students and instructors. We also offer dedicated support 
+                    for technical issues and learning challenges.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Do I receive a certificate upon completion?
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes! You'll receive a verified certificate of completion that you can 
+                    add to your LinkedIn profile and resume. Our certificates are recognized 
+                    by employers in the industry.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section class="course-final-cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Master {{ course.category }}?</h2>
+            <p>Join {{ course.total_students or 2500 }}+ students who've transformed their careers with this course</p>
+            
+            <div class="cta-actions">
+                <button class="cta-button primary x-large" onclick="enrollInCourse('{{ course.id }}')">
+                    🚀 Enroll Now - R{{ "%.0f"|format(course.price_zar) }}
+                </button>
+                <div class="cta-guarantee">
+                    <span class="guarantee-icon">✅</span>
+                    <span><strong>30-Day Money-Back Guarantee</strong> - No risk, all reward</span>
+                </div>
+            </div>
+
+            <div class="urgency-banner">
+                <div class="urgency-content">
+                    <span class="urgency-icon">⚡</span>
+                    <div>
+                        <strong>Limited Time Offer</strong>
+                        <span>Only 43 spots left at 75% discount. Prices increase in <span id="courseTimer">23:59:59</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Course detail page functionality
+function enrollInCourse(courseId) {
+    window.location.href = `/enroll/${courseId}`;
+}
+
+function addToWishlist(courseId) {
+    fetch(`/api/wishlist/${courseId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const button = event.target;
+        if (data.success) {
+            button.innerHTML = '♥ Added to Wishlist';
+            button.classList.add('active');
+        }
+    })
+    .catch(error => {
+        console.error('Error adding to wishlist:', error);
+    });
+}
+
+function shareCourse(courseId) {
+    if (navigator.share) {
+        navigator.share({
+            title: 'Check out this course on CostByte',
+            text: 'I found this amazing course on CostByte!',
+            url: window.location.href,
+        });
+    } else {
+        // Fallback
+        navigator.clipboard.writeText(window.location.href);
+        alert('Course link copied to clipboard!');
+    }
+}
+
+function toggleModule(moduleIndex) {
+    const moduleContent = document.getElementById(`module-${moduleIndex}`);
+    const toggle = event.target.querySelector('.module-toggle');
+    
+    if (moduleContent.style.maxHeight) {
+        moduleContent.style.maxHeight = null;
+        toggle.textContent = '+';
+    } else {
+        moduleContent.style.maxHeight = moduleContent.scrollHeight + "px";
+        toggle.textContent = '-';
+    }
+}
+
+function previewLesson(lessonId) {
+    // In production, this would show lesson preview
+    alert('Lesson preview would show here');
+}
+
+function playPreview() {
+    // In production, this would play course preview
+    alert('Course preview video would play here');
+}
+
+function loadMoreReviews() {
+    // In production, this would load more reviews
+    alert('More reviews would load here');
+}
+
+function showWriteReview() {
+    // In production, this would show review form
+    alert('Review form would appear here');
+}
+
+function toggleFAQ(element) {
+    const answer = element.nextElementSibling;
+    const toggle = element.querySelector('.faq-toggle');
+    
+    if (answer.style.maxHeight) {
+        answer.style.maxHeight = null;
+        toggle.textContent = '+';
+    } else {
+        answer.style.maxHeight = answer.scrollHeight + "px";
+        toggle.textContent = '-';
+    }
+}
+
+// Initialize course page
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all modules as closed
+    document.querySelectorAll('.module-content').forEach(content => {
+        content.style.maxHeight = null;
+    });
+    
+    // Initialize FAQ
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.nextElementSibling.style.maxHeight = null;
+    });
+});
+</script>
+{% endblock %}
