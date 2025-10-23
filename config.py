@@ -4,11 +4,11 @@ from datetime import timedelta
 
 class Config:
     # Security
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'military-grade-encryption-key-2024'
-    SECURITY_PASSWORD_SALT = os.environ.get('SECURITY_PASSWORD_SALT') or 'supersecretsalt'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'costbyte-military-grade-encryption-2024'
+    SECURITY_PASSWORD_SALT = os.environ.get('SECURITY_PASSWORD_SALT') or 'costbyte-supersecret-salt'
     
     # Database
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///ecommerce.db'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///costbyte.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # FNB Bank Accounts
@@ -34,7 +34,7 @@ class Config:
         'year_1_revenue_zar': 500000000
     }
     
-    # Social Media APIs (Add your actual API keys)
+    # Social Media APIs
     SOCIAL_MEDIA_KEYS = {
         'linkedin': os.environ.get('LINKEDIN_API_KEY'),
         'tiktok': os.environ.get('TIKTOK_API_KEY'),
@@ -46,10 +46,14 @@ class Config:
     
     # AI Model Configuration
     AI_MODELS = {
-        'llm_chatbot': 'gpt-4',  # or 'local-llm' for self-hosted
+        'llm_chatbot': 'gpt-4',
         'content_creation': 'gpt-4',
         'analytics': 'custom-ml-model'
     }
+    
+    # Upload Configuration
+    UPLOAD_FOLDER = 'static/uploads'
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
 
 class DevelopmentConfig(Config):
     DEBUG = True
