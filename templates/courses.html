@@ -1,0 +1,21 @@
+<!-- templates/courses.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="courses-container">
+    <h2>AI-Generated Courses</h2>
+    <div class="course-grid">
+        {% for course in courses %}
+        <div class="course-card">
+            <h3>{{ course.title }}</h3>
+            <p>{{ course.description }}</p>
+            <div class="course-meta">
+                <span>Duration: {{ course.estimated_duration }} hours</span>
+                <span>Level: {{ course.difficulty }}</span>
+            </div>
+            <button class="enroll-btn">Enroll Now</button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
