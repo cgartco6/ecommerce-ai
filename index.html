@@ -1,0 +1,148 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="addictive-container">
+    <!-- Mega Urgency Bar -->
+    <div class="mega-urgency-bar">
+        <div class="flash-alert">
+            🚨 MEGA LAUNCH: 5000 SPOTS ONLY - <span id="countdown">167:59:59</span> LEFT!
+        </div>
+        <div class="social-proof-alert">
+            ⚡ <span id="live-counter">2,847</span> people enrolled in last 24 hours!
+        </div>
+    </div>
+
+    <!-- Social Proof Wall -->
+    <div class="social-proof-wall">
+        <div class="testimonial-scroll">
+            <div class="testimonial">"Made R127,000 in 30 days with this system!" - L. van der Merwe, Cape Town</div>
+            <div class="testimonial">"Quit my 9-5 after 3 weeks! Now earning 4x my salary" - S. Patel, Johannesburg</div>
+            <div class="testimonial">"This AI system generated R45,000 in passive income monthly" - T. Johnson, USA</div>
+        </div>
+    </div>
+
+    <!-- VIP Enrollment Section -->
+    <div class="vip-enrollment">
+        <h1>🚀 JOIN THE AI WEALTH REVOLUTION</h1>
+        <p class="subtitle">5,000 Elite Members Only - Applications Closing Soon</p>
+        
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="icon">💰</div>
+                <div class="amount">R45K-127K</div>
+                <div class="label">First Month Earnings</div>
+            </div>
+            <div class="result-card">
+                <div class="icon">👥</div>
+                <div class="amount">4,327+</div>
+                <div class="label">Successful Members</div>
+            </div>
+            <div class="result-card">
+                <div class="icon">⭐</div>
+                <div class="amount">98%</div>
+                <div class="label">Success Rate</div>
+            </div>
+        </div>
+
+        <!-- Course Grid -->
+        <div class="premium-course-grid">
+            {% for course in courses %}
+            <div class="premium-course-card">
+                <div class="vip-badge">VIP ELITE</div>
+                <div class="urgency-indicator">
+                    <div class="pulse"></div>
+                    <span>HOT ITEM</span>
+                </div>
+                
+                <h3>{{ course.title }}</h3>
+                <p class="course-description">{{ course.description }}</p>
+                
+                <div class="results-preview">
+                    <strong>Average Results:</strong>
+                    <ul>
+                        <li>R45,000 - R127,000 first month</li>
+                        <li>4-7 figure yearly potential</li>
+                        <li>95% success rate</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-section">
+                    <div class="original-price">WAS: R{{ course.price * 4 }}</div>
+                    <div class="current-price">NOW: R{{ course.price }}/month</div>
+                    <div class="savings">You Save 75% + Bonuses!</div>
+                </div>
+
+                <div class="enrollment-urgency">
+                    <div class="progress-container">
+                        <div class="progress-text">
+                            <span class="filled">85%</span> filled - 
+                            <span class="remaining" id="seats-{{ course.id }}">43</span> seats left
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="vip-enroll-btn" 
+                        onclick="showVIPEnrollmentModal('{{ course.title }}', {{ course.price }})">
+                    🔥 SECURE MY VIP SPOT - TRANSFORM MY LIFE!
+                </button>
+
+                <div class="bonuses">
+                    <strong>🚀 LIMITED TIME BONUSES:</strong>
+                    <ul>
+                        <li>1-on-1 AI Mentor Session</li>
+                        <li>Private Wealth Community Access</li>
+                        <li>Advanced AI Tools Package</li>
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- VIP Enrollment Modal -->
+<div id="vipModal" class="vip-modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>🚀 WELCOME TO THE ELITE CIRCLE</h2>
+        <div class="urgency-alert">
+            ⏰ <strong>WARNING:</strong> Only <span id="modal-seats-left">27</span> VIP spots remaining at this price!
+        </div>
+        <!-- Enrollment form with FNB payment integration -->
+    </div>
+</div>
+
+<script>
+// Real-time countdown timer
+function updateMassCountdown() {
+    // 7-day countdown for 5000 subscriber target
+    const launchEnd = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    setInterval(() => {
+        const now = new Date();
+        const diff = launchEnd - now;
+        // Update countdown display
+    }, 1000);
+}
+
+// Live subscriber counter
+function updateLiveCounter() {
+    // Simulate live enrollment updates
+    setInterval(() => {
+        const counter = document.getElementById('live-counter');
+        const current = parseInt(counter.textContent.replace(',', ''));
+        counter.textContent = (current + Math.floor(Math.random() * 5)).toLocaleString();
+    }, 5000);
+}
+
+// Initialize all addictive elements
+document.addEventListener('DOMContentLoaded', function() {
+    updateMassCountdown();
+    updateLiveCounter();
+    // Initialize other psychological triggers
+});
+</script>
+{% endblock %}
