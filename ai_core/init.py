@@ -1,4 +1,4 @@
-# ai_core/__init__.py
+# ai_core/__init__.py (Updated)
 from .synthetic_intelligence import SyntheticIntelligence, StrategicDecision
 from .strategic_intelligence import StrategicIntelligence
 from .ai_agents import AIAgent, CourseCreationAgent, MarketingAgent, AnalyticsAgent, SupportAgent, AIAgentOrchestrator
@@ -9,6 +9,7 @@ from .compliance_manager import GlobalComplianceManager, CountryCode
 from .security_monitoring import MilitaryGradeSecurity, ThreatDetectionSystem
 from .auto_poster import SocialMediaAutoPoster
 from .revenue_tracker import RevenueTracker, RevenueAnalytics
+from .revenue_optimizer import RevenueOptimizer
 from .payment_processor import FNBPaymentProcessor, RevenueDistributor
 from .self_healing import SelfHealingSystem, SystemHealthMonitor, RepairAgents
 from .llm_chatbot import MeganChatbot, CustomerSupportSystem
@@ -57,9 +58,10 @@ __all__ = [
     # Auto Posting
     'SocialMediaAutoPoster',
     
-    # Revenue Tracking
+    # Revenue Tracking & Optimization
     'RevenueTracker', 
     'RevenueAnalytics',
+    'RevenueOptimizer',
     
     # Payment Processing
     'FNBPaymentProcessor',
