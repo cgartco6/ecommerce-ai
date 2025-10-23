@@ -1,50 +1,116 @@
 <!-- templates/index.html -->
 {% extends "base.html" %}
 
+{% block title %}CostByte - Transform Your Career with AI-Powered Learning{% endblock %}
+
 {% block content %}
 <!-- Hero Section -->
 <section class="hero">
     <div class="container">
         <div class="hero-content">
             <div class="hero-text">
+                <!-- Success Badge -->
                 <div class="success-badge">
-                    ⭐ Join 4,327+ Successful Students
+                    <span class="badge-icon">⭐</span>
+                    <span class="badge-text">Join 4,327+ Successful Students This Month</span>
                 </div>
-                <h1>Become AI-Fluent & Build a <span class="highlight">6-Figure Career</span> in 2024</h1>
-                <p class="hero-subtitle">Master AI, Programming & Digital Skills That Companies Are Desperately Hiring For</p>
-                
+
+                <!-- Main Heading -->
+                <h1 class="hero-title">
+                    Become <span class="highlight">AI-Fluent</span> & Build a 
+                    <span class="highlight">6-Figure Career</span> in 2024
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="hero-subtitle">
+                    Master AI, Programming & Digital Skills That Companies Are Desperately Hiring For. 
+                    <strong>No prior experience needed.</strong>
+                </p>
+
+                <!-- Hero Stats -->
                 <div class="hero-stats">
                     <div class="stat">
-                        <div class="stat-number">R45K-127K</div>
+                        <div class="stat-number" id="avgIncome">R45K-127K</div>
                         <div class="stat-label">Average First Month Earnings</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">98%</div>
-                        <div class="stat-label">Success Rate</div>
+                        <div class="stat-number" id="successRate">98%</div>
+                        <div class="stat-label">Student Success Rate</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">4,327+</div>
+                        <div class="stat-number" id="totalStudents">4,327+</div>
                         <div class="stat-label">Students Enrolled</div>
                     </div>
                 </div>
 
+                <!-- Call to Action -->
                 <div class="hero-cta">
                     <button class="cta-button primary" onclick="showEnrollmentModal()">
-                        🔥 Secure Your Spot - Limited Availability
+                        <span class="cta-icon">🔥</span>
+                        Secure Your Spot - Limited Availability
                     </button>
                     <button class="cta-button secondary" onclick="scrollToCourses()">
+                        <span class="cta-icon">📚</span>
                         Explore Courses
                     </button>
                 </div>
 
+                <!-- Urgency Notice -->
                 <div class="urgency-notice">
-                    ⚡ <strong>Warning:</strong> Only 43 spots left at current pricing!
+                    <span class="urgency-icon">⚡</span>
+                    <strong>Warning:</strong> Only <span id="heroSeatsLeft">43</span> spots left at current pricing!
+                    <span class="price-increase">Prices increase in <span id="priceIncreaseTimer">23:59:59</span></span>
+                </div>
+
+                <!-- Trust Indicators -->
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <span class="trust-icon">🔒</span>
+                        30-Day Money Back Guarantee
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">💳</span>
+                        Secure Payment & FNB Verified
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">🛡️</span>
+                        Military-Grade Security
+                    </div>
                 </div>
             </div>
-            <div class="hero-video">
-                <div class="video-placeholder">
-                    <div class="play-button">▶</div>
-                    <p>Watch Success Story: "From R15K to R127K/month"</p>
+
+            <div class="hero-media">
+                <!-- Video Placeholder -->
+                <div class="video-container" onclick="playHeroVideo()">
+                    <div class="video-placeholder">
+                        <div class="play-button">
+                            <svg width="60" height="60" viewBox="0 0 60 60" fill="currentColor">
+                                <path d="M30 0C13.458 0 0 13.458 0 30s13.458 30 30 30 30-13.458 30-30S46.542 0 30 0zm-6 44V16l18 14-18 14z"/>
+                            </svg>
+                        </div>
+                        <div class="video-overlay">
+                            <p class="video-title">Watch Success Story</p>
+                            <p class="video-subtitle">"From R15K to R127K/month with AI Skills"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Enrollment Counter -->
+                <div class="live-counter">
+                    <div class="counter-header">
+                        <span class="counter-icon">👥</span>
+                        <strong>Live Enrollment</strong>
+                    </div>
+                    <div class="counter-content">
+                        <div class="counter-number" id="liveEnrollment">2,847</div>
+                        <div class="counter-label">people enrolled in last 24 hours</div>
+                    </div>
+                    <div class="counter-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                        <div class="progress-text">85% of spots filled</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,31 +120,89 @@
 <!-- Social Proof Section -->
 <section class="social-proof">
     <div class="container">
-        <h2>Our Students Are Getting Life-Changing Results</h2>
+        <div class="section-header">
+            <h2>Our Students Are Getting <span class="highlight">Life-Changing Results</span></h2>
+            <p class="section-subtitle">Don't just take our word for it - see what our students are achieving</p>
+        </div>
+
         <div class="testimonials-grid">
+            <!-- Testimonial 1 -->
             <div class="testimonial-card">
                 <div class="testimonial-content">
-                    "I was stuck in a R15,000/month job. After completing the AI Trading course, I made R127,000 in my first month! This platform changed my life."
-                </div>
-                <div class="testimonial-author">
-                    <strong>Lerato M.</strong> - Former Retail Manager
+                    <div class="testimonial-text">
+                        "I was stuck in a R15,000/month retail job. After completing the AI Trading course, 
+                        I made R127,000 in my first month! This platform literally changed my life and 
+                        gave me financial freedom I never thought possible."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">LM</div>
+                        <div class="author-info">
+                            <strong>Lerato M.</strong>
+                            <span>Former Retail Manager, Johannesburg</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-metrics">
+                        <span class="metric">Income Increase: 8.5x</span>
+                        <span class="metric">Time to Results: 30 days</span>
+                    </div>
                 </div>
             </div>
+
+            <!-- Testimonial 2 -->
             <div class="testimonial-card">
                 <div class="testimonial-content">
-                    "The YouTube automation course helped me build a channel making R45,000/month passively. I quit my 9-5 and now work from anywhere."
-                </div>
-                <div class="testimonial-author">
-                    <strong>James K.</strong> - Digital Nomad
+                    <div class="testimonial-text">
+                        "The YouTube automation course helped me build a channel making R45,000/month passively. 
+                        I quit my 9-5 and now work from anywhere in the world. The AI tools and strategies 
+                        taught here are game-changing."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JK</div>
+                        <div class="author-info">
+                            <strong>James K.</strong>
+                            <span>Digital Nomad, Cape Town</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-metrics">
+                        <span class="metric">Passive Income: R45K/month</span>
+                        <span class="metric">Location: Anywhere</span>
+                    </div>
                 </div>
             </div>
+
+            <!-- Testimonial 3 -->
             <div class="testimonial-card">
                 <div class="testimonial-content">
-                    "As a single mom, I needed flexible income. The freelancing course helped me land clients paying $50/hour. Life-changing!"
+                    <div class="testimonial-text">
+                        "As a single mom, I needed flexible income that could work around my schedule. 
+                        The freelancing course helped me land clients paying $50/hour. I went from 
+                        struggling to financially secure in 3 months!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">ST</div>
+                        <div class="author-info">
+                            <strong>Sarah T.</strong>
+                            <span>Freelance Developer, Durban</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-metrics">
+                        <span class="metric">Hourly Rate: $50</span>
+                        <span class="metric">Flexibility: Full-time Mom</span>
+                    </div>
                 </div>
-                <div class="testimonial-author">
-                    <strong>Sarah T.</strong> - Freelance Developer
-                </div>
+            </div>
+        </div>
+
+        <!-- Company Logos -->
+        <div class="companies-section">
+            <p class="companies-title">Trusted by students from leading companies</p>
+            <div class="companies-grid">
+                <div class="company-logo">MTN</div>
+                <div class="company-logo">Standard Bank</div>
+                <div class="company-logo">Shoprite</div>
+                <div class="company-logo">Amazon</div>
+                <div class="company-logo">Google</div>
+                <div class="company-logo">Microsoft</div>
             </div>
         </div>
     </div>
@@ -87,74 +211,328 @@
 <!-- Courses Section -->
 <section class="courses-section" id="courses">
     <div class="container">
-        <h2>Most Popular Career-Boosting Courses</h2>
-        <p class="section-subtitle">Choose your path to financial freedom</p>
-        
+        <div class="section-header">
+            <h2>Most Popular <span class="highlight">Career-Boosting Courses</span></h2>
+            <p class="section-subtitle">Choose your path to financial freedom and career success</p>
+        </div>
+
         <div class="courses-grid">
             {% for course in courses %}
-            <div class="course-card">
-                <div class="course-badge">MOST POPULAR</div>
-                <div class="course-image">
-                    <img src="{{ course.image_url or '/static/images/course-placeholder.jpg' }}" alt="{{ course.title }}">
+            <div class="course-card" data-course-id="{{ course.id }}">
+                <!-- Course Badges -->
+                <div class="course-badges">
+                    {% if loop.first %}
+                    <div class="course-badge most-popular">MOST POPULAR</div>
+                    {% endif %}
+                    <div class="course-badge ai-powered">AI POWERED</div>
+                    <div class="course-badge limited-time">LIMITED TIME</div>
                 </div>
+
+                <!-- Course Image -->
+                <div class="course-image">
+                    <img src="{{ course.image_url or '/static/images/course-placeholder.jpg' }}" 
+                         alt="{{ course.title }}" 
+                         loading="lazy">
+                    <div class="course-overlay">
+                        <button class="preview-button" onclick="previewCourse('{{ course.id }}')">
+                            Preview Course
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Course Content -->
                 <div class="course-content">
-                    <h3>{{ course.title }}</h3>
+                    <h3 class="course-title">{{ course.title }}</h3>
                     <p class="course-description">{{ course.description }}</p>
-                    
+
+                    <!-- Course Features -->
                     <div class="course-features">
                         <div class="feature">
-                            <span class="icon">⏱️</span>
-                            {{ course.duration_hours }} hours
+                            <span class="feature-icon">⏱️</span>
+                            <span class="feature-text">{{ course.duration_hours }} hours</span>
                         </div>
                         <div class="feature">
-                            <span class="icon">📊</span>
-                            {{ course.difficulty|title }}
+                            <span class="feature-icon">📊</span>
+                            <span class="feature-text">{{ course.difficulty|title }}</span>
                         </div>
                         <div class="feature">
-                            <span class="icon">👥</span>
-                            1,200+ students
+                            <span class="feature-icon">👥</span>
+                            <span class="feature-text">1,200+ students</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">⭐</span>
+                            <span class="feature-text">{{ "%.1f"|format(course.total_rating or 4.8) }}/5.0</span>
                         </div>
                     </div>
 
-                    <div class="pricing">
-                        <div class="original-price">R{{ "%.0f"|format(course.original_price_zar or course.price_zar * 4) }}</div>
-                        <div class="current-price">R{{ "%.0f"|format(course.price_zar) }}/month</div>
-                        <div class="discount">Save 75% + Bonuses!</div>
+                    <!-- Learning Outcomes -->
+                    <div class="learning-outcomes">
+                        <strong>You'll learn to:</strong>
+                        <ul>
+                            <li>Master in-demand {{ course.category }} skills</li>
+                            <li>Build real-world projects for your portfolio</li>
+                            <li>Land high-paying jobs or freelance clients</li>
+                            <li>Scale your income with proven strategies</li>
+                        </ul>
                     </div>
 
+                    <!-- Pricing -->
+                    <div class="pricing-section">
+                        <div class="pricing-header">
+                            <div class="original-price">
+                                WAS: R{{ "%.0f"|format(course.original_price_zar or course.price_zar * 4) }}
+                            </div>
+                            <div class="current-price">
+                                NOW: R{{ "%.0f"|format(course.price_zar) }}/month
+                            </div>
+                            <div class="discount-badge">
+                                Save 75% + Bonuses!
+                            </div>
+                        </div>
+                        <div class="pricing-note">
+                            <span class="note-icon">💡</span>
+                            <strong>You save R{{ "%.0f"|format((course.original_price_zar or course.price_zar * 4) - course.price_zar) }}</strong> 
+                            with this limited offer
+                        </div>
+                    </div>
+
+                    <!-- Enrollment Progress -->
                     <div class="enrollment-progress">
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 85%"></div>
+                        <div class="progress-header">
+                            <span class="progress-text">
+                                <span class="filled">85%</span> filled - 
+                                <span class="remaining" id="seats-{{ course.id }}">43</span> seats left
+                            </span>
                         </div>
-                        <div class="progress-text">85% filled - Enroll now!</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                        <div class="progress-note">
+                            ⚡ Enrollment closes when all spots are filled
+                        </div>
                     </div>
 
+                    <!-- CTA Button -->
                     <button class="enroll-button" onclick="showCourseModal('{{ course.id }}')">
-                        🔥 Enroll Now - Transform Your Career
+                        <span class="button-icon">🔥</span>
+                        Enroll Now - Transform Your Career
                     </button>
 
-                    <div class="bonuses">
-                        <strong>🎁 LIMITED TIME BONUSES:</strong>
-                        <ul>
-                            <li>1-on-1 AI Mentor Session</li>
-                            <li>Private Success Community</li>
+                    <!-- Bonuses -->
+                    <div class="bonuses-section">
+                        <div class="bonuses-header">
+                            <span class="bonuses-icon">🎁</span>
+                            <strong>LIMITED TIME BONUSES:</strong>
+                        </div>
+                        <ul class="bonuses-list">
+                            <li>1-on-1 AI Mentor Session (Value: R2,997)</li>
+                            <li>Private Success Community Access</li>
                             <li>Lifetime Course Updates</li>
+                            <li>Advanced AI Tools Package</li>
+                            <li>Certificate of Completion</li>
                         </ul>
+                    </div>
+
+                    <!-- Guarantee -->
+                    <div class="guarantee-section">
+                        <div class="guarantee-content">
+                            <span class="guarantee-icon">✅</span>
+                            <div class="guarantee-text">
+                                <strong>30-Day Money-Back Guarantee</strong>
+                                <span>If you're not satisfied, get a full refund. No questions asked.</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
+        </div>
+
+        <!-- CTA Section -->
+        <div class="courses-cta">
+            <div class="cta-content">
+                <h3>Ready to Transform Your Career?</h3>
+                <p>Join thousands of successful students who've changed their lives with CostByte</p>
+                <div class="cta-buttons">
+                    <button class="cta-button primary large" onclick="showEnrollmentModal()">
+                        🚀 Start Your Journey Today
+                    </button>
+                    <button class="cta-button secondary" onclick="scrollToTestimonials()">
+                        📖 Read More Success Stories
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works">
+    <div class="container">
+        <div class="section-header">
+            <h2>How <span class="highlight">CostByte Works</span></h2>
+            <p class="section-subtitle">Your path to success in 4 simple steps</p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-icon">🎯</div>
+                <h3>Choose Your Course</h3>
+                <p>Select from our AI-powered courses designed for maximum career impact and income potential.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-icon">🤖</div>
+                <h3>Learn with AI Assistance</h3>
+                <p>Get personalized learning paths, instant feedback, and AI-powered mentorship from Megan.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-icon">💼</div>
+                <h3>Build Real Projects</h3>
+                <p>Create portfolio-worthy projects that demonstrate your skills to potential employers or clients.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-icon">💰</div>
+                <h3>Launch Your Career</h3>
+                <p>Start earning with your new skills - whether through employment, freelancing, or entrepreneurship.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Frequently Asked <span class="highlight">Questions</span></h2>
+            <p class="section-subtitle">Everything you need to know about getting started</p>
+        </div>
+
+        <div class="faq-grid">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Do I need any prior experience to start?
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>No prior experience is needed! Our courses are designed for complete beginners. 
+                    We start with the fundamentals and gradually build up to advanced concepts. 
+                    Many of our most successful students started with zero technical background.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    How much time do I need to commit?
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Most students spend 5-10 hours per week and see significant results within 1-3 months. 
+                    The courses are self-paced, so you can learn around your schedule. Even with a full-time 
+                    job or studies, you can make consistent progress.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    What makes CostByte different from other platforms?
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>CostByte uses advanced AI to personalize your learning experience, provide instant 
+                    feedback, and offer real career guidance. Unlike traditional platforms, we focus on 
+                    practical, income-generating skills with proven success stories from our students.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    What payment methods do you accept?
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>We accept all major payment methods including FNB transfers, credit/debit cards, 
+                    and mobile payments. All transactions are secured with military-grade encryption 
+                    and processed through FNB's secure payment gateway.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Is there really a money-back guarantee?
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes! We offer a 30-day no-questions-asked money-back guarantee. If you're not 
+                    completely satisfied with your course, simply contact our support team for a full refund.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA Section -->
+<section class="final-cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Don't Miss Your Chance to <span class="highlight">Transform Your Life</span></h2>
+            <p class="cta-subtitle">The first 5000 students get 75% OFF and exclusive bonuses</p>
+            
+            <div class="urgency-container">
+                <div class="urgency-item">
+                    <span class="urgency-icon">⏰</span>
+                    <div class="urgency-content">
+                        <strong>Offer Expires In:</strong>
+                        <div class="urgency-timer" id="finalCountdown">23:59:59</div>
+                    </div>
+                </div>
+                <div class="urgency-item">
+                    <span class="urgency-icon">🎯</span>
+                    <div class="urgency-content">
+                        <strong>Spots Remaining:</strong>
+                        <div class="urgency-seats" id="finalSeats">43 seats left</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-buttons">
+                <button class="cta-button primary x-large" onclick="showEnrollmentModal()">
+                    🔥 SECURE MY SPOT NOW - 75% OFF
+                </button>
+                <p class="cta-note">
+                    <span class="note-icon">🔒</span>
+                    Your investment is protected by our 30-day money-back guarantee
+                </p>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- Enrollment Modal -->
 <div id="enrollmentModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>🚀 Start Your Journey to Financial Freedom</h2>
-        <div class="modal-body">
-            <!-- Enrollment form will be loaded here -->
+    <div class="modal-content enrollment-modal">
+        <span class="close" onclick="closeModal('enrollmentModal')">&times;</span>
+        
+        <div class="modal-header">
+            <h2>🚀 Start Your Journey to Financial Freedom</h2>
+            <p class="modal-subtitle">Choose your course and transform your career today</p>
+        </div>
+
+        <div class="modal-body" id="enrollmentModalBody">
+            <!-- Content will be loaded dynamically -->
+        </div>
+    </div>
+</div>
+
+<!-- Course Preview Modal -->
+<div id="previewModal" class="modal">
+    <div class="modal-content preview-modal">
+        <span class="close" onclick="closeModal('previewModal')">&times;</span>
+        <div class="modal-body" id="previewModalBody">
+            <!-- Preview content will be loaded dynamically -->
         </div>
     </div>
 </div>
@@ -162,24 +540,332 @@
 
 {% block scripts %}
 <script>
+// Enrollment modal functions
 function showEnrollmentModal() {
-    // Show enrollment modal with psychological triggers
     const modal = document.getElementById('enrollmentModal');
-    modal.style.display = 'block';
+    const modalBody = document.getElementById('enrollmentModalBody');
     
-    // Load dynamic content
+    // Show loading state
+    modalBody.innerHTML = `
+        <div class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Loading course options...</p>
+        </div>
+    `;
+    
+    // Fetch course data
     fetch('/api/courses/popular')
         .then(response => response.json())
-        .then(data => {
-            // Populate modal with course options
+        .then(courses => {
+            modalBody.innerHTML = generateEnrollmentForm(courses);
+        })
+        .catch(error => {
+            modalBody.innerHTML = `
+                <div class="error-state">
+                    <p>Error loading courses. Please try again.</p>
+                    <button onclick="showEnrollmentModal()" class="btn-primary">Retry</button>
+                </div>
+            `;
         });
+    
+    modal.style.display = 'block';
+}
+
+function showCourseModal(courseId) {
+    fetch(`/api/courses/${courseId}`)
+        .then(response => response.json())
+        .then(course => {
+            showEnrollmentModal();
+            // Pre-select the specific course
+            setTimeout(() => {
+                const courseSelect = document.querySelector(`input[name="course_id"][value="${courseId}"]`);
+                if (courseSelect) {
+                    courseSelect.checked = true;
+                    updateEnrollmentSummary();
+                }
+            }, 100);
+        })
+        .catch(error => {
+            console.error('Error loading course:', error);
+            showEnrollmentModal();
+        });
+}
+
+function generateEnrollmentForm(courses) {
+    return `
+        <div class="enrollment-form-container">
+            <!-- Urgency Alert -->
+            <div class="urgency-alert">
+                <div class="alert-icon">⚡</div>
+                <div class="alert-content">
+                    <strong>LIMITED TIME OFFER</strong>
+                    <p>Only 43 spots left at 75% discount! Prices increase in <span id="modalTimer">23:59:59</span></p>
+                </div>
+            </div>
+
+            <!-- Course Selection -->
+            <div class="course-selection">
+                <h3>Select Your Course</h3>
+                <div class="course-options">
+                    ${courses.map(course => `
+                        <label class="course-option">
+                            <input type="radio" name="course_id" value="${course.id}" 
+                                   onchange="updateEnrollmentSummary()">
+                            <div class="option-content">
+                                <div class="option-header">
+                                    <h4>${course.title}</h4>
+                                    <div class="option-price">
+                                        <span class="original-price">R${course.original_price}</span>
+                                        <span class="current-price">R${course.price}</span>
+                                    </div>
+                                </div>
+                                <p class="option-description">${course.description}</p>
+                                <div class="option-features">
+                                    <span>⏱️ ${course.duration} hours</span>
+                                    <span>📊 ${course.difficulty}</span>
+                                    <span>⭐ ${course.rating}/5.0</span>
+                                </div>
+                            </div>
+                        </label>
+                    `).join('')}
+                </div>
+            </div>
+
+            <!-- Enrollment Summary -->
+            <div class="enrollment-summary" id="enrollmentSummary">
+                <div class="summary-placeholder">
+                    <p>Select a course to see enrollment details</p>
+                </div>
+            </div>
+
+            <!-- Payment Section -->
+            <div class="payment-section" id="paymentSection" style="display: none;">
+                <h3>Complete Your Enrollment</h3>
+                <form id="paymentForm" onsubmit="processPayment(event)">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="full_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentMethod">Payment Method</label>
+                        <select id="paymentMethod" name="payment_method" required>
+                            <option value="">Select payment method</option>
+                            <option value="fnb">FNB Transfer</option>
+                            <option value="credit_card">Credit Card</option>
+                            <option value="debit_card">Debit Card</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="enroll-btn">
+                        🔥 Complete Enrollment - Transform My Life!
+                    </button>
+                </form>
+            </div>
+        </div>
+    `;
+}
+
+function updateEnrollmentSummary() {
+    const selectedCourse = document.querySelector('input[name="course_id"]:checked');
+    const summaryElement = document.getElementById('enrollmentSummary');
+    const paymentSection = document.getElementById('paymentSection');
+    
+    if (!selectedCourse) {
+        summaryElement.innerHTML = `
+            <div class="summary-placeholder">
+                <p>Select a course to see enrollment details</p>
+            </div>
+        `;
+        paymentSection.style.display = 'none';
+        return;
+    }
+    
+    const courseElement = selectedCourse.closest('.course-option');
+    const courseTitle = courseElement.querySelector('h4').textContent;
+    const coursePrice = courseElement.querySelector('.current-price').textContent;
+    
+    summaryElement.innerHTML = `
+        <div class="summary-content">
+            <h4>Enrollment Summary</h4>
+            <div class="summary-details">
+                <div class="summary-item">
+                    <span>Course:</span>
+                    <span>${courseTitle}</span>
+                </div>
+                <div class="summary-item">
+                    <span>Investment:</span>
+                    <span class="investment-amount">${coursePrice}</span>
+                </div>
+                <div class="summary-item">
+                    <span>Savings:</span>
+                    <span class="savings-amount">75% OFF</span>
+                </div>
+            </div>
+            
+            <!-- Bonuses -->
+            <div class="summary-bonuses">
+                <h5>🎁 INCLUDED BONUSES:</h5>
+                <ul>
+                    <li>1-on-1 AI Mentor Session (Value: R2,997)</li>
+                    <li>Private Success Community Access</li>
+                    <li>Lifetime Course Updates</li>
+                    <li>Advanced AI Tools Package</li>
+                </ul>
+            </div>
+            
+            <!-- Guarantee -->
+            <div class="summary-guarantee">
+                <span class="guarantee-icon">✅</span>
+                <span><strong>30-Day Money-Back Guarantee</strong> - No risk, all reward</span>
+            </div>
+            
+            <button class="continue-btn" onclick="showPaymentSection()">
+                Continue to Payment ›
+            </button>
+        </div>
+    `;
+}
+
+function showPaymentSection() {
+    document.getElementById('paymentSection').style.display = 'block';
+    document.getElementById('paymentSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function processPayment(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const courseId = document.querySelector('input[name="course_id"]:checked').value;
+    
+    // Show loading state
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    submitBtn.innerHTML = 'Processing...';
+    submitBtn.disabled = true;
+    
+    // Simulate payment processing
+    fetch('/api/enroll', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            course_id: courseId,
+            ...Object.fromEntries(formData)
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showSuccessMessage(data);
+        } else {
+            showErrorMessage(data.error);
+        }
+    })
+    .catch(error => {
+        showErrorMessage('Payment processing failed. Please try again.');
+    })
+    .finally(() => {
+        submitBtn.innerHTML = '🔥 Complete Enrollment - Transform My Life!';
+        submitBtn.disabled = false;
+    });
+}
+
+function showSuccessMessage(data) {
+    const modalBody = document.getElementById('enrollmentModalBody');
+    modalBody.innerHTML = `
+        <div class="success-message">
+            <div class="success-icon">🎉</div>
+            <h3>Welcome to the CostByte Family!</h3>
+            <p>Your enrollment has been confirmed. Check your email for access instructions.</p>
+            <div class="success-details">
+                <p><strong>Course:</strong> ${data.course_title}</p>
+                <p><strong>Transaction ID:</strong> ${data.transaction_id}</p>
+            </div>
+            <button class="btn-primary" onclick="closeModal('enrollmentModal')">
+                Start Learning Now ›
+            </button>
+        </div>
+    `;
+}
+
+function showErrorMessage(message) {
+    alert('Error: ' + message);
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
 }
 
 function scrollToCourses() {
     document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
 }
 
-// Initialize countdown timer
-initializeCountdown('globalCountdown', 7); // 7 days countdown
+function scrollToTestimonials() {
+    document.querySelector('.social-proof').scrollIntoView({ behavior: 'smooth' });
+}
+
+function playHeroVideo() {
+    // In production, this would play the actual video
+    alert('Success story video would play here');
+}
+
+function previewCourse(courseId) {
+    // In production, this would show course preview
+    alert('Course preview for: ' + courseId);
+}
+
+function toggleFAQ(element) {
+    const answer = element.nextElementSibling;
+    const toggle = element.querySelector('.faq-toggle');
+    
+    if (answer.style.maxHeight) {
+        answer.style.maxHeight = null;
+        toggle.textContent = '+';
+    } else {
+        answer.style.maxHeight = answer.scrollHeight + "px";
+        toggle.textContent = '-';
+    }
+}
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize counters
+    initializeCounters();
+    
+    // Initialize FAQ
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.nextElementSibling.style.maxHeight = null;
+    });
+});
+
+function initializeCounters() {
+    // Animate number counters
+    animateValue('avgIncome', 0, 45000, 2000);
+    animateValue('successRate', 0, 98, 1500);
+    animateValue('totalStudents', 0, 4327, 2500);
+    animateValue('liveEnrollment', 0, 2847, 3000);
+}
+
+function animateValue(id, start, end, duration) {
+    let obj = document.getElementById(id);
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        obj.innerHTML = value === end ? end.toLocaleString() + (id === 'avgIncome' ? '-127K' : id === 'successRate' ? '%' : '+') : value.toLocaleString();
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
+}
 </script>
 {% endblock %}
