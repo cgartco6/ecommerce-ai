@@ -1,37 +1,81 @@
 # ai_core/__init__.py
-from .synthetic_intelligence import SyntheticIntelligence
+from .synthetic_intelligence import SyntheticIntelligence, StrategicDecision
 from .strategic_intelligence import StrategicIntelligence
-from .ai_agents import AIAgentOrchestrator, MassAcquisitionOrchestrator
-from .ai_helpers import HelperOrchestrator
-from .content_creators import HDContentCreator, AddictiveContentFactory
-from .marketing_automation import SocialMediaMarketingAgent, SocialMediaTracker
+from .ai_agents import AIAgent, CourseCreationAgent, MarketingAgent, AnalyticsAgent, SupportAgent, AIAgentOrchestrator
+from .ai_helpers import AIHelper, CourseCreationHelper, MarketingHelper, AnalyticsHelper, HelperOrchestrator
+from .content_creators import HDContentCreator, AddictiveContentStrategist, ContentType
+from .marketing_automation import SocialMediaMarketingAgent, SocialMediaTracker, PerformanceAnalyzer
 from .compliance_manager import GlobalComplianceManager, CountryCode
-from .security_monitoring import MilitaryGradeSecurity
+from .security_monitoring import MilitaryGradeSecurity, ThreatDetectionSystem
 from .auto_poster import SocialMediaAutoPoster
 from .revenue_tracker import RevenueTracker, RevenueAnalytics
 from .payment_processor import FNBPaymentProcessor, RevenueDistributor
-from .self_healing import SelfHealingSystem
+from .self_healing import SelfHealingSystem, SystemHealthMonitor, RepairAgents
 from .llm_chatbot import MeganChatbot, CustomerSupportSystem
 
 __all__ = [
+    # Synthetic Intelligence
     'SyntheticIntelligence',
-    'StrategicIntelligence', 
+    'StrategicDecision',
+    
+    # Strategic Intelligence  
+    'StrategicIntelligence',
+    
+    # AI Agents
+    'AIAgent',
+    'CourseCreationAgent', 
+    'MarketingAgent',
+    'AnalyticsAgent',
+    'SupportAgent',
     'AIAgentOrchestrator',
-    'MassAcquisitionOrchestrator',
+    
+    # AI Helpers
+    'AIHelper',
+    'CourseCreationHelper',
+    'MarketingHelper', 
+    'AnalyticsHelper',
     'HelperOrchestrator',
+    
+    # Content Creation
     'HDContentCreator',
-    'AddictiveContentFactory',
-    'SocialMediaMarketingAgent',
+    'AddictiveContentStrategist',
+    'ContentType',
+    
+    # Marketing Automation
+    'SocialMediaMarketingAgent', 
     'SocialMediaTracker',
-    'GlobalComplianceManager', 
+    'PerformanceAnalyzer',
+    
+    # Compliance
+    'GlobalComplianceManager',
     'CountryCode',
+    
+    # Security
     'MilitaryGradeSecurity',
+    'ThreatDetectionSystem',
+    
+    # Auto Posting
     'SocialMediaAutoPoster',
-    'RevenueTracker',
+    
+    # Revenue Tracking
+    'RevenueTracker', 
     'RevenueAnalytics',
+    
+    # Payment Processing
     'FNBPaymentProcessor',
     'RevenueDistributor',
+    
+    # Self Healing
     'SelfHealingSystem',
+    'SystemHealthMonitor', 
+    'RepairAgents',
+    
+    # LLM Chatbot
     'MeganChatbot',
     'CustomerSupportSystem'
 ]
+
+# CostByte AI Core Version
+__version__ = "1.0.0"
+__author__ = "CostByte AI Team"
+__description__ = "Advanced AI-Powered E-Learning Platform Core System"
