@@ -1,0 +1,185 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="success-badge">
+                    ⭐ Join 4,327+ Successful Students
+                </div>
+                <h1>Become AI-Fluent & Build a <span class="highlight">6-Figure Career</span> in 2024</h1>
+                <p class="hero-subtitle">Master AI, Programming & Digital Skills That Companies Are Desperately Hiring For</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">R45K-127K</div>
+                        <div class="stat-label">Average First Month Earnings</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">4,327+</div>
+                        <div class="stat-label">Students Enrolled</div>
+                    </div>
+                </div>
+
+                <div class="hero-cta">
+                    <button class="cta-button primary" onclick="showEnrollmentModal()">
+                        🔥 Secure Your Spot - Limited Availability
+                    </button>
+                    <button class="cta-button secondary" onclick="scrollToCourses()">
+                        Explore Courses
+                    </button>
+                </div>
+
+                <div class="urgency-notice">
+                    ⚡ <strong>Warning:</strong> Only 43 spots left at current pricing!
+                </div>
+            </div>
+            <div class="hero-video">
+                <div class="video-placeholder">
+                    <div class="play-button">▶</div>
+                    <p>Watch Success Story: "From R15K to R127K/month"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Social Proof Section -->
+<section class="social-proof">
+    <div class="container">
+        <h2>Our Students Are Getting Life-Changing Results</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "I was stuck in a R15,000/month job. After completing the AI Trading course, I made R127,000 in my first month! This platform changed my life."
+                </div>
+                <div class="testimonial-author">
+                    <strong>Lerato M.</strong> - Former Retail Manager
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "The YouTube automation course helped me build a channel making R45,000/month passively. I quit my 9-5 and now work from anywhere."
+                </div>
+                <div class="testimonial-author">
+                    <strong>James K.</strong> - Digital Nomad
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "As a single mom, I needed flexible income. The freelancing course helped me land clients paying $50/hour. Life-changing!"
+                </div>
+                <div class="testimonial-author">
+                    <strong>Sarah T.</strong> - Freelance Developer
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Courses Section -->
+<section class="courses-section" id="courses">
+    <div class="container">
+        <h2>Most Popular Career-Boosting Courses</h2>
+        <p class="section-subtitle">Choose your path to financial freedom</p>
+        
+        <div class="courses-grid">
+            {% for course in courses %}
+            <div class="course-card">
+                <div class="course-badge">MOST POPULAR</div>
+                <div class="course-image">
+                    <img src="{{ course.image_url or '/static/images/course-placeholder.jpg' }}" alt="{{ course.title }}">
+                </div>
+                <div class="course-content">
+                    <h3>{{ course.title }}</h3>
+                    <p class="course-description">{{ course.description }}</p>
+                    
+                    <div class="course-features">
+                        <div class="feature">
+                            <span class="icon">⏱️</span>
+                            {{ course.duration_hours }} hours
+                        </div>
+                        <div class="feature">
+                            <span class="icon">📊</span>
+                            {{ course.difficulty|title }}
+                        </div>
+                        <div class="feature">
+                            <span class="icon">👥</span>
+                            1,200+ students
+                        </div>
+                    </div>
+
+                    <div class="pricing">
+                        <div class="original-price">R{{ "%.0f"|format(course.original_price_zar or course.price_zar * 4) }}</div>
+                        <div class="current-price">R{{ "%.0f"|format(course.price_zar) }}/month</div>
+                        <div class="discount">Save 75% + Bonuses!</div>
+                    </div>
+
+                    <div class="enrollment-progress">
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 85%"></div>
+                        </div>
+                        <div class="progress-text">85% filled - Enroll now!</div>
+                    </div>
+
+                    <button class="enroll-button" onclick="showCourseModal('{{ course.id }}')">
+                        🔥 Enroll Now - Transform Your Career
+                    </button>
+
+                    <div class="bonuses">
+                        <strong>🎁 LIMITED TIME BONUSES:</strong>
+                        <ul>
+                            <li>1-on-1 AI Mentor Session</li>
+                            <li>Private Success Community</li>
+                            <li>Lifetime Course Updates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Enrollment Modal -->
+<div id="enrollmentModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>🚀 Start Your Journey to Financial Freedom</h2>
+        <div class="modal-body">
+            <!-- Enrollment form will be loaded here -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function showEnrollmentModal() {
+    // Show enrollment modal with psychological triggers
+    const modal = document.getElementById('enrollmentModal');
+    modal.style.display = 'block';
+    
+    // Load dynamic content
+    fetch('/api/courses/popular')
+        .then(response => response.json())
+        .then(data => {
+            // Populate modal with course options
+        });
+}
+
+function scrollToCourses() {
+    document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Initialize countdown timer
+initializeCountdown('globalCountdown', 7); // 7 days countdown
+</script>
+{% endblock %}
